@@ -1,6 +1,6 @@
 <h2 align="center">🛒 E-commerce Chat Bot</h2>
 
-<p align="center"><b>An AI-powered shopping assistant that helps users discover products, ask FAQs, and chat naturally — all in a clean Streamlit UI. The bot routes each message to the best handler (FAQ, SQL, or Small Talk) and responds fast using a mix of semantic search (RAG), LLM reasoning (Groq Llama 3.3), and a local SQLite database for product lookups.</b></p>
+<p align="center"><b>An AI-powered shopping assistant that helps users discover products, ask FAQs, and chat naturally — all in a clean Streamlit UI. The bot routes each message to the best handler (FAQ, SQL, or Small Talk) and responds fast using a mix of semantic search (RAG), LLM reasoning (Groq openai/gpt-oss-20b), and a local SQLite database for product lookups.</b></p>
 
 <p align="center">
   <a href="https://www.trychroma.com/"><img alt="ChromaDB" src="https://img.shields.io/badge/🟣%20ChromaDB-1.0.16-9333ea?logo=databricks&logoColor=white"></a>
@@ -37,7 +37,7 @@ Most e-commerce search bars only accept rigid filters. This project lets shopper
 
 ## 💻 Tech Stack
 * **Frontend/UI:** Streamlit
-* **LLM Runtime:** Groq (Llama-3.3-70B-versatile)
+* **LLM Runtime:** Groq (openai/gpt-oss-20b)
 * **Vector Store:** ChromaDB
 * **Embeddings:** Sentence Transformers
 * **Router:** semantic_router
@@ -72,11 +72,18 @@ Most e-commerce search bars only accept rigid filters. This project lets shopper
    pip install -r requirements.txt
    ```
 
-3. **Install Dependencies**
-
+3. **Set Up Environment Variables**
+ 
+   Create a `.env` file in the root directory (or copy `.env.example`):
+ 
+   ```bash
+   cp .env.example .env
+   ```
+ 
+   Configure your environment variables:
    ```bash
    GROQ_API_KEY=your_api_key_here
-   GROQ_MODEL=llama-3.3-70b-versatile
+   GROQ_MODEL=openai/gpt-oss-20b
    ```
 
 4. **Run the Streamlit App**

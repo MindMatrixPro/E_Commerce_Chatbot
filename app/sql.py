@@ -9,7 +9,7 @@ from pandas import DataFrame
 
 load_dotenv()
 
-GROQ_MODEL = os.getenv('GROQ_MODEL')
+GROQ_MODEL = os.getenv('GROQ_MODEL', 'openai/gpt-oss-20b')
 
 db_path = Path(__file__).parent / "db.sqlite"
 
@@ -62,7 +62,7 @@ def generate_sql_query(question):
                 "content": question,
             }
         ],
-        model=os.environ['GROQ_MODEL'],
+        model=GROQ_MODEL,
         temperature=0.2,
         max_tokens=1024
     )
@@ -90,7 +90,7 @@ def data_comprehension(question, context):
                 "content": f"QUESTION: {question}. DATA: {context}",
             }
         ],
-        model=os.environ['GROQ_MODEL'],
+        model=GROQ_MODEL,
         temperature=0.2,
         # max_tokens=1024
     )

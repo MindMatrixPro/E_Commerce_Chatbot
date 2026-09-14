@@ -69,7 +69,7 @@ def generate_answer(query, context):
     QUESTION: {query}
     '''
     completion = groq_client.chat.completions.create(
-        model=os.environ['GROQ_MODEL'],
+        model=os.environ.get('GROQ_MODEL', 'openai/gpt-oss-20b'),
         messages=[
             {
                 'role': 'user',
@@ -89,7 +89,9 @@ def faq_chain(query):
 
 
 if __name__ == '__main__':
-    # ingest_faq_data(faqs_path)
+    from pathlib import Path
+    faqs_path = Path(__file__).parent / "resources" / "faq_data.csv"
+    ingest_faq_data(faqs_path)
     query = "what's your policy on defective products?"
     query = "Do you take cash as a payment option?"
     # result = get_relevant_qa(query)
