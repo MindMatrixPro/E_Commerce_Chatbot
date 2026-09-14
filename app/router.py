@@ -9,11 +9,13 @@ encoder = HuggingFaceEncoder(
 faq = Route(
     name='faq',
     utterances=[
-        "What is the return policy of the products?",
+        "What is the return policy?",
         "Do I get discount with the HDFC credit card?",
         "How can I track my order?",
         "What payment methods are accepted?",
         "How long does it take to process a refund?",
+        "What is your warranty or replacement policy?",
+        "What is your policy on defective items?",
     ],
     score_threshold=0.2
 )
@@ -26,6 +28,15 @@ sql = Route(
         "Do you have formal shoes in size 9?",
         "Are there any Puma shoes on sale?",
         "What is the price of puma running shoes?",
+        "give me top rated products having rating more than 4.0",
+        "list here all products which you have",
+        "show me all products",
+        "show top rated products",
+        "what products do you have?",
+        "list available products",
+        "find products with rating greater than 4",
+        "show products on discount",
+        "recommend top products",
     ],
     score_threshold=0.2
 )

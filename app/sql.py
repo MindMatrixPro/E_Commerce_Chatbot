@@ -34,6 +34,7 @@ Make sure whenever you try to search for the brand name, the name can be in any 
 So, make sure to use %LIKE% to find the brand in condition. Never use "ILIKE". 
 Create a single SQL query for the question provided. 
 The query should have all the fields in SELECT clause (i.e. SELECT *)
+If no specific limit or count is specified in the question, limit the results to a maximum of 10 (i.e. LIMIT 10).
 
 Just the SQL query is needed, nothing more. Always provide the SQL in between the <SQL></SQL> tags."""
 
@@ -113,7 +114,12 @@ def sql_chain(question):
     if response is None:
         return "Sorry, there was a problem executing SQL query"
 
+    if response.empty:
+        return "Sorry, no products found matching your request."
+
     context = response.to_dict(orient='records')
+    if len(context) > 10:
+        context = context[:10]
 
     answer = data_comprehension(question, context)
     return answer
