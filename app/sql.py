@@ -101,28 +101,31 @@ def data_comprehension(question, context):
 
 
 def sql_chain(question):
-    sql_query = generate_sql_query(question)
-    pattern = "<SQL>(.*?)</SQL>"
-    matches = re.findall(pattern, sql_query, re.DOTALL)
+    try:
+        sql_query = generate_sql_query(question)
+        pattern = "<SQL>(.*?)</SQL>"
+        matches = re.findall(pattern, sql_query, re.DOTALL)
 
-    if len(matches) == 0:
-        return "Sorry, LLM is not able to generate a query for your question"
+        if len(matches) == 0:
+            return "Sorry, LLM is not able to generate a query for your question"
 
-    print(matches[0].strip())
+        print(matches[0].strip())
 
-    response = run_query(matches[0].strip())
-    if response is None:
-        return "Sorry, there was a problem executing SQL query"
+        response = run_query(matches[0].strip())
+        if response is None:
+            return "Sorry, there was a problem executing SQL query"
 
-    if response.empty:
-        return "Sorry, no products found matching your request."
+        if response.empty:
+            return "Sorry, no products found matching your request."
 
-    context = response.to_dict(orient='records')
-    if len(context) > 10:
-        context = context[:10]
+        context = response.to_dict(orient='records')
+        if len(context) > 10:
+            context = context[:10]
 
-    answer = data_comprehension(question, context)
-    return answer
+        answer = data_comprehension(question, context)
+        return answer
+    except Exception as e:
+        return f"Sorry, an error occurred while searching for products: {str(e)}"
 
 
 if __name__ == "__main__":
